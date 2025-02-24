@@ -8,22 +8,16 @@ load_dotenv()
 
 def create_conn(db=None):
     # Replace with your PostgreSQL connection details
-    db_host = os.getenv('Postgres_HOST')
-    db_user = os.getenv('Postgrest_USER')
-    db_pass = os.getenv('Postgres_PASS')
-    port = os.getenv('Postgrest_PORT')
+    host = os.getenv('Postgres_HOST')
+    username = os.getenv('Postgres_USER')
+    password = os.getenv('Postgres_PASS')
+    port = os.getenv('Postgres_PORT')
 
     if db is None:
         connection_string = f'postgresql+psycopg2://{db_user}:{db_pass}@{db_host}:{port}'
     else:
         connection_string = f'postgresql+psycopg2://{db_user}:{db_pass}@{db_host}:{port}/{db}'
     return connection_string
-
-
-# List databases
-def list_databases():
-    databases = inspector.get_schema_names()
-    return databases
 
 
 # List schemas and tables

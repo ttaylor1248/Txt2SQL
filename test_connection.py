@@ -1,24 +1,24 @@
 import os
 from dotenv import load_dotenv
-from connections import create_connection, test_connection, list_connections, save_connection
+from connections import Connection, list_connections
 
 load_dotenv()
 
 # Replace with your PostgreSQL connection details
-host = os.getenv('Postgres_HOST')
-username = os.getenv('Postgres_USER')
-password = os.getenv('Postgres_PASS')
-port = os.getenv('Postgres_PORT')
+conn_type = "MS_SQL"
+host = "MSI175"
+username = "AI_Login"
+password = "Kiyoshi1248"
+port = 1433
+database = "AdventureWorks2019"
+conn = Connection(conn_type=conn_type, host=host, username=username, password=password, port=port, database=database)
 
-conn_type, key, connection_str = create_connection(conn_type="Postgres", host=host, username=username,
-                                                   password=password, port=port, database='polls')
-print(f'{conn_type}:  {key}:  {connection_str}')
+conn.create_connection()
+print(f'key: {conn.key}')
+conn.test_connection()
+conn.save_connection()
+for c in list_connections():
+    print(c)
 
-key, connection_string, result_text = test_connection(conn_type=conn_type, key=key, connection_string=connection_str)
-print(f'{key}: {connection_str}: {result_text}')
 
-key_text = save_connection(key=key, value=connection_str)
-print(key_text)
 
-connections = list_connections()
-print(connections)

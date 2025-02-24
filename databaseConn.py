@@ -134,3 +134,30 @@ try:
     print("Connection to Microsoft SQL Server DB successful")
 except Exception as e:
     print(f"The error '{e}' occurred")
+
+from sqlalchemy import create_engine, text
+
+# Replace with your PostgreSQL connection details
+username = 'your_username'
+password = 'your_password'
+host = 'your_host'
+port = '5432'  # Default PostgreSQL port is 5432
+database = 'your_database'
+
+# Create the connection string
+connection_string = f'postgresql+psycopg2://{username}:{password}@{host}:{port}/{database}'
+
+# Create the SQLAlchemy engine
+engine = create_engine(connection_string)
+
+# Test the connection
+try:
+    with engine.connect() as connection:
+        result = connection.execute(text("SELECT version();"))
+        for row in result:
+            print(row)
+    print("Connection to PostgreSQL DB successful")
+except Exception as e:
+    print(f"The error '{e}' occurred")
+
+
